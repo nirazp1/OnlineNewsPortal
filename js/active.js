@@ -3,11 +3,12 @@
 
     var $window = $(window);
 
-    // Fullscreen Active Code
+    // Fullscreen height adjustment
     $window.on('resizeEnd', function() {
         $(".full_height").height($window.height());
     });
 
+    // Custom 'resizeEnd' event to avoid excessive function calls during resize
     $window.on('resize', function() {
         if (this.resizeTO) clearTimeout(this.resizeTO);
         this.resizeTO = setTimeout(function() {
@@ -15,7 +16,7 @@
         }, 300);
     }).trigger("resize");
 
-    // Newsticker Active Code
+    // Initialize news ticker for breaking news
     $.simpleTicker($("#breakingNewsTicker"), {
         speed: 1000,
         delay: 3500,
@@ -23,7 +24,7 @@
         effectType: 'roll'
     });
 
-    // Newsticker Active Code
+    // Initialize news ticker for stock news
     $.simpleTicker($("#stockNewsTicker"), {
         speed: 1200,
         delay: 3500,
@@ -33,7 +34,7 @@
 
     var welcomeSlide = $('.welcome-blog-post-slide');
 
-    // Welcome Slider Active Code
+    // Initialize welcome slider using Owl Carousel
     if ($.fn.owlCarousel) {
         welcomeSlide.owlCarousel({
             items: 3,
@@ -58,7 +59,9 @@
         });
     }
 
+    // Handle animations for welcome slider items
     welcomeSlide.on('translate.owl.carousel', function() {
+        // Reset animations when slide changes
         var slideLayer = $("[data-animation]");
         slideLayer.each(function() {
             var anim_name = $(this).data('animation');
@@ -67,6 +70,7 @@
     });
 
     welcomeSlide.on('translated.owl.carousel', function() {
+        // Apply animations to active slide
         var slideLayer = welcomeSlide.find('.owl-item.active').find("[data-animation]");
         slideLayer.each(function() {
             var anim_name = $(this).data('animation');
@@ -74,17 +78,19 @@
         });
     });
 
+    // Set animation delay for elements with 'data-delay' attribute
     $("[data-delay]").each(function() {
         var anim_del = $(this).data('delay');
         $(this).css('animation-delay', anim_del);
     });
 
+    // Set animation duration for elements with 'data-duration' attribute
     $("[data-duration]").each(function() {
         var anim_dur = $(this).data('duration');
         $(this).css('animation-duration', anim_dur);
     });
 
-    // Marquee Active Code
+    // Initialize marquee for elements with 'simple-marquee-container' class
     if ($.fn.SimpleMarquee) {
         $('.simple-marquee-container').SimpleMarquee({
             duration: 80000,
@@ -96,7 +102,7 @@
         });
     }
 
-    // Editorial Post Slides
+    // Initialize editorial post slider
     if ($.fn.owlCarousel) {
         $('.editorial-post-slides').owlCarousel({
             items: 1,
@@ -110,12 +116,12 @@
         });
     }
 
-    // Search Btn Active Code
+    // Toggle search form visibility
     $('#searchbtn').on('click', function() {
         $('body').toggleClass('search-form-on');
     })
 
-    // Video Active Code
+    // Initialize video popup using Magnific Popup
     if ($.fn.magnificPopup) {
         $('.videobtn').magnificPopup({
             disableOn: 0,
@@ -127,7 +133,7 @@
         });
     }
 
-    // ScrollUp Active Code
+    // Initialize scroll-to-top functionality
     if ($.fn.scrollUp) {
         $.scrollUp({
             scrollSpeed: 1000,
@@ -136,12 +142,12 @@
         });
     }
 
-    // PreventDefault a Click
+    // Prevent default action for links with '#' as href
     $("a[href='#']").on('click', function($) {
         $.preventDefault();
     });
 
-    // wow Active Code
+    // Initialize WOW.js for scroll animations on desktop
     if ($window.width() > 767) {
         new WOW().init();
     }
